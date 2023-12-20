@@ -1,0 +1,58 @@
+IT-SW1>en
+Password: 
+IT-SW1#config terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+IT-SW1(config)#interface FastEthernet 0/3
+IT-SW1(config-if)#
+
+PROHRFIN-SW1>en
+Password: 
+PROHRFIN-SW1#config terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+ex
+	
+PROHRFIN-SW1(config)#int range fa0/1-2
+PROHRFIN-SW1(config-if-range)#switchport mode trunk
+
+
+PROHRFIN-SW1(config-if-range)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/2, changed state to down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/2, changed state to up
+
+PROHRFIN-SW1(config-if-range)#ex
+PROHRFIN-SW1(config)#
+PROHRFIN-SW1(config)#vlan 10
+PROHRFIN-SW1(config-vlan)#name LAN
+PROHRFIN-SW1(config-vlan)#ex
+PROHRFIN-SW1(config)#vlan 50
+PROHRFIN-SW1(config-vlan)#name WLAN
+PROHRFIN-SW1(config-vlan)#ex
+PROHRFIN-SW1(config)#vlan 99
+PROHRFIN-SW1(config-vlan)#name VOICE
+	
+PROHRFIN-SW1(config-vlan)#ex
+
+PROHRFIN-SW1(config-vlan)#ex
+PROHRFIN-SW1(config)#int range fa0/3-20
+PROHRFIN-SW1(config-if-range)#switchport mode access
+PROHRFIN-SW1(config-if-range)#switchport access vlan 10
+PROHRFIN-SW1(config-if-range)#switchport voice vlan 99
+PROHRFIN-SW1(config-if-range)#ex
+PROHRFIN-SW1(config)#int range fa0/21-24
+PROHRFIN-SW1(config-if-range)#switchport mode access
+PROHRFIN-SW1(config-if-range)#switchport access vlan 50
+PROHRFIN-SW1(config-if-range)#ex
+PROHRFIN-SW1(config)#int range fa0/3-24
+PROHRFIN-SW1(config-if-range)#spanning-tree portfast
+
+PROHRFIN-SW1(config-if-range)#spanning-tree bpduguard enable
+PROHRFIN-SW1(config-if-range)#ex
+PROHRFIN-SW1(config)#do wr
+Building configuration...
+[OK]
+PROHRFIN-SW1(config)#

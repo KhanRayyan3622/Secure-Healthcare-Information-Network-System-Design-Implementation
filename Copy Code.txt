@@ -1,0 +1,29 @@
+vlan 10
+name LAN
+vlan 50
+name WLAN
+vlan 99
+name VOICE
+
+int range fa0/1-3
+switchport mode trunk
+exit
+
+int range fa0/4-20
+switchport mode access
+switchport access vlan 10
+switchport voice vlan 99
+ex
+
+int range fa0/21-24
+switchport mode access
+switchport access vlan 50
+ex
+
+int range fa0/4-24
+spanning-tree portfast
+spanning-tree bpduguard enable
+ex
+
+
+do wr
